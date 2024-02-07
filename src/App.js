@@ -7,7 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 //const queryClient = new QueryClient();
 
 function App() {
-  return <div className="bg-blue-100">ImmediateMeetup</div>;
+  return <div className="bg-yellow-100">ImmediateMeetup</div>;
 }
 
 export default App;
