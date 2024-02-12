@@ -4,7 +4,6 @@ import TimeRange from '../components/TimeRange'
 import TimeTable from './TimeTable'
 
 export default function Range({showTable, setShowTable}) {
-  // setShowTable을 추가하고 props로 받음
   const [dateRange, setDateRange] = useState({allDatesInRange: null})
   const [timeRange, setTimeRange] = useState({startTime: null, endTime: null, timeLength: null})
 
