@@ -35,7 +35,12 @@ const BasicInput = ({type, onChange, placeholder, valtype}) => {
 
   return (
     <div>
-      <input type={type} onChange={handleInputChange} placeholder={placeholder} />
+      <input
+        type={type}
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        className={`${width} h-[55px] rounded-md border border-stone-300 outline-none placeholder:text-stone-300 text-xl pl-5`}
+      />
       {!isValid && <div className=" text-red-600">{errorMessage}</div>}
     </div>
   )

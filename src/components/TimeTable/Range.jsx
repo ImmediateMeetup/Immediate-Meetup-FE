@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import DateRange from '../components/DateRange'
-import TimeRange from '../components/TimeRange'
+import DateRange from './DateRange'
+import TimeRange from './TimeRange'
 import TimeTable from './TimeTable'
 
 export default function Range({showTable, setShowTable}) {

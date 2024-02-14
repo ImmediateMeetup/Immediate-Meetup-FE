@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Range from '../components/Range'
+import Range from '../components/TimeTable/Range'
 
 export default function RangePicker() {
   const [showTable, setShowTable] = useState(false)
