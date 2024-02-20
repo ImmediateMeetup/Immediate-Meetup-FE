@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 import Button from '../components/Button'
-import Input from '../components/input/Input'
+import Input from '../components/input/index'
 
 export default function Login() {
   return (
@@ -14,7 +14,9 @@ export default function Login() {
         </div>
 
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
-          <Button type="submit" text="로그인" />
+          <button type="submit" className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] ">
+            로그인
+          </button>
         </form>
         <div className="text-center cursor-pointer mt-14">회원가입</div>
       </div>
