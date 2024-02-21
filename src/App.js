@@ -1,12 +1,7 @@
 import React from 'react'
-import Join from './pages/Join'
 
 function App() {
-  return (
-    <>
-      <Join />
-    </>
-  )
+  return <div className="bg-yellow-100">ImmediateMeetup</div>
 }
 
 export default App
