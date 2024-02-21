@@ -1,12 +1,21 @@
 import React, {useState} from 'react'
 import {PasswordValidation, EmailValidation, MatchPassword} from './validation'
 
+<<<<<<< Updated upstream
 const BasicInput = ({type, onChange, placeholder, valtype, width}) => {
+=======
+const checkMatchPassword = (password, repassword) => {
+  if (!repassword) return true
+  return password === repassword
+}
+
+const BasicInput = ({type, onChange, placeholder, valtype, width, confirmPassword}) => {
+>>>>>>> Stashed changes
   const [isValid, setIsValid] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputChange = (e) => {
-    let inputValue = e.target.value
+    const inputValue = e.target.value
     let validationFunction
 
     switch (valtype) {
@@ -16,16 +25,17 @@ const BasicInput = ({type, onChange, placeholder, valtype, width}) => {
         break
       case 'password':
         validationFunction = PasswordValidation
-        setErrorMessage('비밀번호에는 알파벳,숫자,특수문자가 포함되어야하며 8글자 이상이어야합니다.')
+        setErrorMessage('비밀번호 형식이 올바르지 않습니다.')
         break
       case 'matchPassword':
         validationFunction = MatchPassword
         setErrorMessage('비밀번호가 일치하지 않습니다.')
         break
     }
-    if (validationFunction && !validationFunction(inputValue)) {
+    if (validationFunction && !validationFunction(inputValue, confirmPassword)) {
       setIsValid(false)
       console.log(errorMessage)
+      console.log(e.target.value)
     } else {
       setIsValid(true)
       onChange(e)
