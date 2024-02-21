@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {PasswordValidation, EmailValidation, MatchPassword} from './validation'
 
-const BasicInput = ({type, onChange, placeholder, valtype}) => {
+const BasicInput = ({type, onChange, placeholder, valtype, width}) => {
   const [isValid, setIsValid] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -39,7 +39,7 @@ const BasicInput = ({type, onChange, placeholder, valtype}) => {
         type={type}
         onChange={handleInputChange}
         placeholder={placeholder}
-        className={`${width} h-[55px] rounded-md border border-stone-300 outline-none placeholder:text-stone-300 text-xl pl-5`}
+        className={`${width} h-[55px] rounded-md border border-stone-300 outline-none placeholder:text-stone-300 text-xl pl-5 mt-5`}
       />
       {!isValid && <div className=" text-red-600">{errorMessage}</div>}
     </div>

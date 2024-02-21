@@ -35,7 +35,6 @@ const TimeRange = ({timeRange, setTimeRange}) => {
         <Radio value={1}>아침 ( 7: 00 ~ 12: 00 )</Radio>
         <Radio value={2}>오후 ( 12: 00 ~ 18: 00)</Radio>
         <Radio value={3}>저녁 (18: 00 ~ 24: 00)</Radio>
-        <Radio value={4}>약속 날짜만 정하면 돼요</Radio>
       </Space>
     </Radio.Group>
   )
