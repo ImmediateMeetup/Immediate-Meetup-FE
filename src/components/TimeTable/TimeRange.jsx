@@ -15,13 +15,13 @@ const TimeRange = ({timeRange, setTimeRange}) => {
   const TimeRangeChange = (value) => {
     switch (value) {
       case 1:
-        setTimeRange({startTime: 7, endTime: 12, timeLength: 10})
+        setTimeRange({startTime: '07:00', endTime: '12:00', timeLength: 10})
         break
       case 2:
-        setTimeRange({startTime: 12, endTime: 18, timeLength: 12})
+        setTimeRange({startTime: '12:00', endTime: '18:00', timeLength: 12})
         break
       case 3:
-        setTimeRange({startTime: 18, endTime: 24, timeLength: 12})
+        setTimeRange({startTime: '18:00', endTime: '24:00', timeLength: 12})
         break
       default:
         setTimeRange({startTime: 7, endTime: 24, timeLength: 34})
