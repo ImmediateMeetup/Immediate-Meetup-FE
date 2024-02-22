@@ -1,11 +1,35 @@
 import React, {useState} from 'react'
-import Index from '../components/input/index'
+import BasicInput from '../components/input'
 
 export default function Join() {
+  const [data, setData] = useState({
+    email: 'test@example.com',
+    password: 'test@',
+    checkedPassword: 'test@',
+    name: '이름',
+    address: '주소',
+    phone_number: '전화번호'
+  })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [profilePicture, setProfilePicture] = useState(null)
+  const [name, setName] = useState('')
+  const [phone_number, setPhoneNumber] = useState('')
+  const [address, setAddress] = useState('')
+
+  const handleData = () => {
+    const updatedData = {
+      email: email || data.email,
+      password: password || data.password,
+      checkedPassword: confirmPassword || data.checkedPassword,
+      name: name || data.name,
+      address: address || data.address,
+      phone_number: phone_number || data.phone_number
+    }
+    setData(updatedData)
+    console.log(updatedData)
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
@@ -13,6 +37,10 @@ export default function Join() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
+  }
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value)
   }
 
   const handleProfilePictureChange = (e) => {
@@ -46,41 +74,53 @@ export default function Join() {
           </label>
 
           <div className="flex flex-col  mt-12">
-            <Index
+            <BasicInput
               type="email"
               onChange={handleEmailChange}
               placeholder="이메일을 입력하세요"
               valtype="email"
               width={'w-[350px]'}
             />
-
             <button
               type="button"
-              className="items-start bg-[#ffa7a7] text-white w-20 rounded-2xl mt-2 h-10 hover:bg-[#ff6e6e] "
+              className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
             >
               인증 요청
             </button>
-            <Index
+            <BasicInput
               type="password"
               onChange={handlePasswordChange}
               placeholder="비밀번호를 입력하세요"
               valtype="password"
               width={'w-[350px]'}
             />
-            <Index
+            <BasicInput
               type="password"
-              onChange={handlePasswordChange}
+              onChange={handleConfirmPasswordChange}
               placeholder="비밀번호 확인"
               valtype="matchPassword"
               width={'w-[350px]'}
+              rePassword={password}
             />
-            <Index type="name" placeholder="닉네임을 입력해주세요" width={'w-[350px]'} />
-            <Index type="phoneNumber" placeholder="전화번호" width={'w-[350px]'} />
+            <BasicInput
+              type="name"
+              placeholder="닉네임을 입력해주세요"
+              width={'w-[350px]'}
+              showError={false}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <BasicInput
+              type="phoneNumber"
+              placeholder="전화번호"
+              width={'w-[350px]'}
+              showError={false}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
           </div>
           <div> 현재위치 추가 </div>
           <button
-            type="submit"
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+            onClick={handleData}
           >
             회원가입
           </button>

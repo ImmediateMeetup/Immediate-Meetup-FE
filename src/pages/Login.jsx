@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../components/Header'
 import Button from '../components/Button'
 import Input from '../components/input/index'
+import BasicInput from '../components/input/index'
 
 export default function Login() {
   return (
@@ -9,8 +10,8 @@ export default function Login() {
       <div className="content-center mt-56">
         <div className="text-[30px] font-bold text-center text-black">우리지금 만나, 당장 만나</div>
         <div className="flex flex-col items-center mt-28">
-          <Input type={'email'} placeHolder={'ID'} />
-          <Input type={'password'} placeHolder={'Password'} />
+          <BasicInput type={'email'} placeHolder={'ID'} />
+          <BasicInput type={'password'} placeHolder={'Password'} />
         </div>
 
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">

@@ -5,7 +5,7 @@ const EmailValidation = (email) => {
 }
 
 const PasswordValidation = (password) => {
-  const pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+  const pattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&!@#$%^&*()_+])[A-Za-z\d@$!%*#?&!@#$%^&*()_+]{8,}$/
   if (pattern.test(password) === false) return false
   else return true
 }

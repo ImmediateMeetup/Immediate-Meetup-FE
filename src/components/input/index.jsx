@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {PasswordValidation, EmailValidation, MatchPassword} from './validation'
 
-const BasicInput = ({type, onChange, placeholder, valtype, width}) => {
+const BasicInput = ({type, onChange, placeholder, valtype, width = 'w-[386px]', showError = true, rePassword}) => {
   const [isValid, setIsValid] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -16,32 +16,32 @@ const BasicInput = ({type, onChange, placeholder, valtype, width}) => {
         break
       case 'password':
         validationFunction = PasswordValidation
-        setErrorMessage('비밀번호에는 알파벳,숫자,특수문자가 포함되어야하며 8글자 이상이어야합니다.')
+        setErrorMessage('비밀번호 형식이 올바르지 않습니다.')
         break
       case 'matchPassword':
-        validationFunction = MatchPassword
+        validationFunction = (value) => MatchPassword(value, rePassword)
         setErrorMessage('비밀번호가 일치하지 않습니다.')
+        break
+      default:
         break
     }
     if (validationFunction && !validationFunction(inputValue)) {
       setIsValid(false)
-      console.log(errorMessage)
     } else {
       setIsValid(true)
       onChange(e)
-      console.log(isValid)
     }
   }
 
   return (
-    <div>
+    <div className="flex flex-col mb-5">
       <input
         type={type}
         onChange={handleInputChange}
         placeholder={placeholder}
         className={`${width} h-[55px] rounded-md border border-stone-300 outline-none placeholder:text-stone-300 text-xl pl-5 mt-5`}
       />
-      {!isValid && <div className=" text-red-600">{errorMessage}</div>}
+      {showError && !isValid && <div className="text-red-600">{errorMessage}</div>}
     </div>
   )
 }
