@@ -1,5 +1,5 @@
 import React from 'react'
-import TeamDetail from './pages/TeamDetail'
+import TeamDetail from './pages/Meeting/TeamDetail'
 function App() {
   return (
     <div>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import ReceiveTimeTable from '../components/TimeTable/ReceiveTimeTable'
-import Button from '../components/Button'
-import Header from '../components/Header'
+import ReceiveTimeTable from '../../components/TimeTable/ReceiveTimeTable'
+import Button from '../../components/Button'
+import Header from '../../components/Header'
 
 export default function TeamDetail() {
   const [comments, setComments] = useState([])
