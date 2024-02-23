@@ -1,8 +1,8 @@
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import React from 'react'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Join from './pages/Join'
-import {Routes, Route, BrowserRouter} from 'react-router-dom'
 
 function App() {
   return (
