@@ -3,8 +3,15 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import Input from '../components/input/index'
 import BasicInput from '../components/input/index'
+import {useNavigate} from 'react-router-dom'
 
 export default function Login() {
+  const navigate = useNavigate()
+
+  const goToJoin = () => {
+    navigate('/join')
+  }
+
   return (
     <div>
       <div className="content-center mt-56">
@@ -19,7 +26,9 @@ export default function Login() {
             로그인
           </button>
         </form>
-        <div className="text-center cursor-pointer mt-14">회원가입</div>
+        <div onClick={goToJoin} className="text-center cursor-pointer mt-14">
+          회원가입
+        </div>
       </div>
     </div>
   )

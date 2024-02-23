@@ -1,11 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react'
 import Header from '../components/Header'
-import Button from '../components/Button'
+import {useNavigate} from 'react-router-dom'
 
 export default function Home() {
   const containerRef = useRef(null)
   const [translateX, setTranslateX] = useState(0)
   const [direction, setDirection] = useState('for')
+  const navigate = useNavigate()
+
+  const goToLogIn = () => {
+    navigate('/LogIn')
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,7 +62,13 @@ export default function Home() {
             <p className="text-[100px] font-bold">Immediate Meetup</p>
           </div>
           <div className="py-36">
-            <Button text="시작하기" color="#ff6e6e" />
+            <button
+              onClick={goToLogIn}
+              type="submit"
+              className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+            >
+              시작하기
+            </button>
           </div>
         </div>
       </div>
