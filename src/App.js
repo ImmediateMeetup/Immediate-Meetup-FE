@@ -1,11 +1,7 @@
 import React from 'react'
-import TeamDetail from './pages/Meeting/TeamDetail'
+
 function App() {
-  return (
-    <div>
-      <TeamDetail />
-    </div>
-  )
+  return <div className="bg-yellow-100">ImmediateMeetup</div>
 }
 
 export default App
