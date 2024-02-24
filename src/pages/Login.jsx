@@ -3,9 +3,14 @@ import Header from '../components/Header'
 import Button from '../components/Button'
 import Input from '../components/input/index'
 import BasicInput from '../components/input/index'
-import {login} from '../apis'
+import {useNavigate} from 'react-router-dom'
 
 export default function Login() {
+  const navigate = useNavigate()
+
+  const goToJoin = () => {
+    navigate('/join')
+  }
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [data, setData] = useState({
@@ -20,6 +25,7 @@ export default function Login() {
     setData(updatedData)
     login(data)
     console.log(updatedData)
+    
   }
   return (
     <div>
@@ -36,11 +42,12 @@ export default function Login() {
         </div>
 
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
-          <button type="submit" className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] ">
+          <button type="submit" className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] " onClick={handleData}>
             로그인
           </button>
         </form>
-        <div className="text-center cursor-pointer mt-14" onClick={handleData}>
+        <div onClick={goToJoin} className="text-center cursor-pointer mt-14">
+
           회원가입
         </div>
       </div>

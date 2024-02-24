@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import BasicInput from '../components/input'
+import Input from '../components/input/Input'
 import Header from '../components/Header'
 
 export default function MyPage() {
@@ -45,7 +45,6 @@ export default function MyPage() {
     <div>
       <Header />
       <div className="content-center mt-12">
-        <div className="text-[30px] font-bold text-center text-black">우리지금 만나, 당장 만나</div>
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
           {profilePicture ? (
             <img
@@ -67,17 +66,17 @@ export default function MyPage() {
             프로필 사진 변경
           </label>
 
-          <div className="flex flex-col mt-12">
-            <BasicInput type="email" onChange={handleEmailChange} value={email} valtype="email" width={'w-[350px]'} />
+          <div className="flex flex-col mt-8">
+            <div className="text-center text-[20px] mb-12">{email}</div>
 
-            <BasicInput
+            <Input
               type="name"
               width={'w-[350px]'}
               showError={false}
               defaultValue={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <BasicInput
+            <Input
               type="phoneNumber"
               width={'w-[350px]'}
               showError={false}
@@ -90,7 +89,7 @@ export default function MyPage() {
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
           >
-            회원가입
+            수정하기
           </button>
         </form>
       </div>
