@@ -1,5 +1,8 @@
 import React, {useState} from 'react'
 import BasicInput from '../components/input'
+import {join} from '../apis'
+import CurrentLocation from '../components/Maps/CurrentLocation'
+import Header from '../components/Header'
 
 export default function Join() {
   const [data, setData] = useState({
@@ -8,7 +11,7 @@ export default function Join() {
     checkedPassword: 'test@',
     name: '이름',
     address: '주소',
-    phone_number: '전화번호'
+    phone_number: '전화번호',
   })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -16,7 +19,12 @@ export default function Join() {
   const [profilePicture, setProfilePicture] = useState(null)
   const [name, setName] = useState('')
   const [phone_number, setPhoneNumber] = useState('')
-  const [address, setAddress] = useState('')
+  const [address, setAddress] = useState({
+    lat: 0,
+    lng: 0,
+  })
+  const [stringAddress, setStringAddress] = useState('')
+  const [openModal, setOpenModal] = useState(false)
 
   const handleData = () => {
     const updatedData = {
@@ -25,10 +33,10 @@ export default function Join() {
       checkedPassword: confirmPassword || data.checkedPassword,
       name: name || data.name,
       address: address || data.address,
-      phone_number: phone_number || data.phone_number
+      phone_number: phone_number || data.phone_number,
     }
     setData(updatedData)
-    console.log(updatedData)
+    join(data)
   }
 
   const handleEmailChange = (e) => {
@@ -48,8 +56,13 @@ export default function Join() {
     setProfilePicture(file)
   }
 
+  const handleModal = () => {
+    setOpenModal(!openModal)
+    console.log(openModal)
+  }
   return (
     <div>
+      <Header />
       <div className="content-center mt-24">
         <div className="text-[30px] font-bold text-center text-black">우리지금 만나, 당장 만나</div>
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
@@ -117,7 +130,11 @@ export default function Join() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div> 현재위치 추가 </div>
+          <div onClick={handleModal}>현재위치 추가</div>
+          {openModal && (
+            <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
+          )}
+          <div onClick={() => console.log(address)}>{stringAddress === '' ? '주소를 설정해주세요' : stringAddress}</div>
           <button
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
