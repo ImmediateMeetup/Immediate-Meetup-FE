@@ -1,9 +1,30 @@
 import React, {useEffect, useState} from 'react'
-import useKakaoLoader from './useKakaoLoader'
 import {Map, MapMarker} from 'react-kakao-maps-sdk'
+import useKakaoLoader from './useKakaoLoader'
 
-const CurrentLocation = () => {
+const CurrentLocation = (props) => {
   useKakaoLoader()
+
+  const handleModal = props.handleModal
+  const setAddress = props.setAddress
+  const setStringAddress = props.setStringAddress
+
+  const handleAddress = () => {
+    const geocoder = new kakao.maps.services.Geocoder()
+    const address = {
+      lat: location.center.lat,
+      lng: location.center.lng,
+    }
+    setAddress(address)
+
+    geocoder.coord2Address(location.center.lng, location.center.lat, function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+        setStringAddress(result[0].road_address.address_name)
+      } else {
+        console.error('주소를 가져오는 데 실패했습니다.')
+      }
+    })
+  }
 
   const [location, setLocation] = useState({
     center: {
@@ -45,17 +66,40 @@ const CurrentLocation = () => {
   }, [])
 
   return (
-    <div className=" w-2/3">
+    <div className=" top-2/3 w-3/4 h-72 z-10 absolute border border-r-8">
       <div>
-        <Map center={location.center} className=" w-full h-72" level={3}>
+        <Map
+          center={location.center}
+          className=" w-full h-72"
+          level={3}
+          onClick={(_, MouseEvent) => {
+            const latlng = MouseEvent.latLng
+            setLocation((prev) => ({
+              ...prev,
+              center: {
+                lat: latlng.getLat(),
+                lng: latlng.getLng(),
+              },
+            }))
+          }}
+        >
           {!location.isLoading && (
             <MapMarker
               position={location.center}
               onClick={() => {
                 console.log(`위치보내기 api 넣기 위도:${location.center.lat}, 경도:${location.center.lng}`)
+                handleAddress()
+                handleModal()
               }}
             >
-              <div className=" text-black">{location.errMsg ? location.errMsg : '여기 맞으신가요?'}</div>
+              <div
+                className=" text-black"
+                onClick={() => {
+                  console.log(location.center)
+                }}
+              >
+                {location.errMsg ? location.errMsg : '여기 맞으신가요?'}
+              </div>
             </MapMarker>
           )}
         </Map>
