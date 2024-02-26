@@ -3,6 +3,9 @@ import React from 'react'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Join from './pages/Join'
+import Main from './pages/Meeting/Main'
+import RangePicker from './pages/RangePicker'
+import TeamDetail from './pages/Meeting/TeamDetail'
 
 function App() {
   return (
@@ -12,6 +15,10 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
+        <Route path="/main" element={<Main />} />
+
+        <Route path="/teamDetail" element={<TeamDetail />} />
+        <Route path="/rangePicker" element={<RangePicker />} />
       </Routes>
     </BrowserRouter>
   )
