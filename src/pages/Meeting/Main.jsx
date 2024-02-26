@@ -3,7 +3,7 @@ import Header from '../../components/Header'
 import Button from '../../components/Button'
 import MeetingButton from '../../components/MettingButton'
 
-const Main = () => {
+const MeetingRoom = () => {
   return (
     <>
       <Header />
@@ -19,4 +19,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default MeetingRoom
