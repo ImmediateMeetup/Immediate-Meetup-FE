@@ -3,6 +3,9 @@ import BasicInput from '../components/input'
 import {join} from '../apis'
 import CurrentLocation from '../components/Maps/CurrentLocation'
 import Header from '../components/Header'
+import InviteEmail from '../components/Modal/InviteEmail'
+import {emailCertification} from '../apis'
+import {useMutation} from '@tanstack/react-query'
 
 export default function Join() {
   const [data, setData] = useState({
@@ -11,7 +14,7 @@ export default function Join() {
     checkedPassword: 'test@',
     name: '이름',
     address: '주소',
-    phone_number: '전화번호',
+    phone_number: '전화번호'
   })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,10 +24,11 @@ export default function Join() {
   const [phone_number, setPhoneNumber] = useState('')
   const [address, setAddress] = useState({
     lat: 0,
-    lng: 0,
+    lng: 0
   })
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
+  const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
 
   const handleData = () => {
     const updatedData = {
@@ -33,7 +37,7 @@ export default function Join() {
       checkedPassword: confirmPassword || data.checkedPassword,
       name: name || data.name,
       address: address || data.address,
-      phone_number: phone_number || data.phone_number,
+      phone_number: phone_number || data.phone_number
     }
     setData(updatedData)
     join(data)
@@ -60,6 +64,11 @@ export default function Join() {
     setOpenModal(!openModal)
     console.log(openModal)
   }
+
+  const handleInviteModal = () => {
+    setOpenInviteModal(!openInviteModal)
+  }
+
   return (
     <div>
       <Header />
@@ -97,6 +106,7 @@ export default function Join() {
             <button
               type="button"
               className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
+              onClick={handleInviteModal}
             >
               인증 요청
             </button>
@@ -143,6 +153,8 @@ export default function Join() {
           </button>
         </form>
       </div>
+
+      {openInviteModal && <InviteEmail closeModal={handleInviteModal} />}
     </div>
   )
 }
