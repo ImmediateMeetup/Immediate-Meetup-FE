@@ -28,7 +28,7 @@ export default function Join() {
   })
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
-  const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
+  const [openInviteModal, setOpenInviteModal] = useState(false)
 
   const handleData = () => {
     const updatedData = {
@@ -140,11 +140,15 @@ export default function Join() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div onClick={handleModal}>현재위치 추가</div>
+          <div className="text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600 " onClick={handleModal}>
+            현재위치 추가
+          </div>
           {openModal && (
             <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
           )}
-          <div onClick={() => console.log(address)}>{stringAddress === '' ? '주소를 설정해주세요' : stringAddress}</div>
+          <div className="text-[22px]" onClick={() => console.log(address)}>
+            {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
+          </div>
           <button
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
