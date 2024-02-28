@@ -2,8 +2,6 @@ import React from 'react'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
 import MeetingButton from '../../components/MettingButton'
-import TeamDetail from './TeamDetail'
-import RangePicker from '../RangePicker'
 import {useNavigate} from 'react-router-dom'
 
 const Main = () => {
