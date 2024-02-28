@@ -14,7 +14,7 @@ export default function Join() {
     checkedPassword: 'test@',
     name: '이름',
     address: {},
-    phone_number: '전화번호',
+    phone_number: '전화번호'
   })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,29 +24,10 @@ export default function Join() {
   const [phone_number, setPhoneNumber] = useState('')
   const [address, setAddress] = useState({
     latitude: 0,
-    longitude: 0,
+    longitude: 0
   })
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
-  const modalRef = useRef(null)
-
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setOpenModal(false)
-      }
-    }
-
-    if (openModal) {
-      document.addEventListener('mousedown', handleOutsideClick)
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [openModal])
   const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
 
   const handleData = () => {
@@ -56,7 +37,7 @@ export default function Join() {
       checkedPassword: confirmPassword || data.checkedPassword,
       name: name || data.name,
       address: address || data.address,
-      phone_number: phone_number || data.phone_number,
+      phone_number: phone_number || data.phone_number
     }
     setData(updatedData)
     console.log(data)
@@ -158,13 +139,17 @@ export default function Join() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div onClick={handleModal}>현재위치 추가</div>
+          <div className="text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600 " onClick={handleModal}>
+            현재위치 추가
+          </div>
           {openModal && (
             <div ref={modalRef}>
               <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
             </div>
           )}
-          <div onClick={() => console.log(address)}>{stringAddress === '' ? '주소를 설정해주세요' : stringAddress}</div>
+          <div className="text-[22px]" onClick={() => console.log(address)}>
+            {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
+          </div>
           <div
             className=" cursor-pointer flex items-center justify-center mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}

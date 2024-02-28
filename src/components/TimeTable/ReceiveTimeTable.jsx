@@ -47,6 +47,10 @@ export default function ReceiveTimeTable() {
     }
   }
 
+  const backgroundColors = ['bg-rose-0', 'bg-rose-100', 'bg-rose-200']
+
+  const pickedBackgroundColors = ['bg-rose-100', 'bg-rose-200', 'bg-rose-300']
+
   const handleCellClick = (cellKey) => {
     if (pickedCells.includes(cellKey)) {
       setPickedCells(pickedCells.filter((key) => key !== cellKey))
@@ -108,14 +112,14 @@ export default function ReceiveTimeTable() {
       for (let j = 1; j < allDates.length + 1; j++) {
         const cellKey = `${i}-${j}`
         const colorIndex = colorNum[i * j - 1]
-        const backgroundColor = `bg-rose-${100 * colorIndex}`
-        const pikedbackgroundColor = `bg-rose-${100 * colorIndex + 100}`
+        const backgroundColor = backgroundColors[colorIndex % backgroundColors.length]
+        const pickedBackgroundColor = pickedBackgroundColors[colorIndex % pickedBackgroundColors.length]
 
         rows[i][j] = (
           <td
             key={`${i}-${j}`}
             className={`text-black text-center border-2 border-[#cb9fa6] h-8 w-20 ${
-              pickedCells.includes(cellKey) ? pikedbackgroundColor : backgroundColor
+              pickedCells.includes(cellKey) ? pickedBackgroundColor : backgroundColor
             }`}
             onClick={() => handleCellClick(cellKey)}
           ></td>
