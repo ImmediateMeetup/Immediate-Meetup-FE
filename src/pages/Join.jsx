@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import BasicInput from '../components/input'
 import {join} from '../apis'
 import CurrentLocation from '../components/Maps/CurrentLocation'
@@ -13,8 +13,8 @@ export default function Join() {
     password: 'test@',
     checkedPassword: 'test@',
     name: '이름',
-    address: '주소',
-    phone_number: '전화번호'
+    address: {},
+    phone_number: '전화번호',
   })
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,11 +23,30 @@ export default function Join() {
   const [name, setName] = useState('')
   const [phone_number, setPhoneNumber] = useState('')
   const [address, setAddress] = useState({
-    lat: 0,
-    lng: 0
+    latitude: 0,
+    longitude: 0,
   })
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setOpenModal(false)
+      }
+    }
+
+    if (openModal) {
+      document.addEventListener('mousedown', handleOutsideClick)
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [openModal])
   const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
 
   const handleData = () => {
@@ -37,10 +56,11 @@ export default function Join() {
       checkedPassword: confirmPassword || data.checkedPassword,
       name: name || data.name,
       address: address || data.address,
-      phone_number: phone_number || data.phone_number
+      phone_number: phone_number || data.phone_number,
     }
     setData(updatedData)
-    join(data)
+    console.log(data)
+    //join(data)
   }
 
   const handleEmailChange = (e) => {
@@ -62,13 +82,11 @@ export default function Join() {
 
   const handleModal = () => {
     setOpenModal(!openModal)
-    console.log(openModal)
   }
 
   const handleInviteModal = () => {
     setOpenInviteModal(!openInviteModal)
   }
-
   return (
     <div>
       <Header />
@@ -142,15 +160,17 @@ export default function Join() {
           </div>
           <div onClick={handleModal}>현재위치 추가</div>
           {openModal && (
-            <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
+            <div ref={modalRef}>
+              <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
+            </div>
           )}
           <div onClick={() => console.log(address)}>{stringAddress === '' ? '주소를 설정해주세요' : stringAddress}</div>
-          <button
-            className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+          <div
+            className=" cursor-pointer flex items-center justify-center mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
           >
             회원가입
-          </button>
+          </div>
         </form>
       </div>
 
