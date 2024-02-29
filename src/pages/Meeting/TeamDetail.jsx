@@ -1,10 +1,25 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReceiveTimeTable from '../../components/TimeTable/ReceiveTimeTable'
 import Button from '../../components/Button'
 import Header from '../../components/Header'
 import CurrentLocation from '../../components/Maps/CurrentLocation'
+import {useCookies} from 'react-cookie'
+import {getMeeting} from '../../apis'
 
 export default function TeamDetail() {
+  const [cookie] = useCookies(['AUTH-KEY'])
+  const [data, setData] = useState()
+  useEffect(() => {
+    async function getData() {
+      try {
+        const token = cookie['AUTH-KEY']
+        const response = await getMeeting(token)
+        setData(response.data)
+      } catch (error) {
+        console.error('Error')
+      }
+    }
+  })
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
   const [address, setAddress] = useState({lat: 0, lng: 0})
@@ -40,22 +55,8 @@ export default function TeamDetail() {
               <div className="flex mt-4">
                 <ReceiveTimeTable />
                 <div className="ml-40">
-                  <div
-                    className="text-l mr-5 text-white w-32 text-center rounded-2xl mt-2 bg-blue-600 "
-                    onClick={handleModal}
-                  >
-                    현재위치 추가
-                  </div>
-                  {openModal && (
-                    <CurrentLocation
-                      handleModal={handleModal}
-                      setAddress={setAddress}
-                      setStringAddress={setStringAddress}
-                    />
-                  )}
-                  <div className="text-[24px]" onClick={() => console.log(address)}>
-                    {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
-                  </div>
+                  <div>약속장소는 다음과 같아요</div>
+                  <div>{stringAddress}</div>
                 </div>
               </div>
             </div>

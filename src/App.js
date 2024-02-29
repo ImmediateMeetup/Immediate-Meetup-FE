@@ -7,6 +7,7 @@ import Main from './pages/Meeting/Main'
 import RangePicker from './pages/RangePicker'
 import TeamDetail from './pages/Meeting/TeamDetail'
 import BasicMap from './components/Maps'
+import MyPage from './pages/MyPage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/mypage" element={<MyPage />} />
 
         <Route path="/teamDetail" element={<TeamDetail />} />
         <Route path="/rangePicker" element={<RangePicker />} />
