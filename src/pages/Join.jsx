@@ -28,6 +28,25 @@ export default function Join() {
   })
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setOpenModal(false)
+      }
+    }
+
+    if (openModal) {
+      document.addEventListener('mousedown', handleOutsideClick)
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [openModal])
   const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
 
   const handleData = () => {
@@ -65,8 +84,9 @@ export default function Join() {
     setOpenModal(!openModal)
   }
 
-  const handleInviteModal = () => {
+  const handleInviteModal = (email) => {
     setOpenInviteModal(!openInviteModal)
+    //emailCertification(email)
   }
   return (
     <div>
@@ -105,7 +125,7 @@ export default function Join() {
             <button
               type="button"
               className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
-              onClick={handleInviteModal}
+              onClick={handleInviteModal(email)}
             >
               인증 요청
             </button>
@@ -139,7 +159,7 @@ export default function Join() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div className="text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600 " onClick={handleModal}>
+          <div className=" text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600" onClick={handleModal}>
             현재위치 추가
           </div>
           {openModal && (
@@ -147,9 +167,9 @@ export default function Join() {
               <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
             </div>
           )}
-          <div className="text-[22px]" onClick={() => console.log(address)}>
+          <di className="text-[22px]" onClick={() => console.log(address)}>
             {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
-          </div>
+          </di>
           <div
             className=" cursor-pointer flex items-center justify-center mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
@@ -159,7 +179,7 @@ export default function Join() {
         </form>
       </div>
 
-      {openInviteModal && <InviteEmail closeModal={handleInviteModal} />}
+      {openInviteModal && <InviteEmail closeModal={handleInviteModal} email={email} />}
     </div>
   )
 }

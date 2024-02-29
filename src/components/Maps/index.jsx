@@ -13,7 +13,7 @@ export default function BasicMap() {
   const [searchComplete, setSearchComplete] = useState(false)
   const [center, setCenter] = useState({
     lat: 33.450701,
-    lng: 126.570667
+    lng: 126.570667,
   })
   const [zoomLevel, setZoomLevel] = useState(3)
 
@@ -29,9 +29,9 @@ export default function BasicMap() {
           newMarkers.push({
             position: {
               lat: data[i].y,
-              lng: data[i].x
+              lng: data[i].x,
             },
-            content: data[i].place_name
+            content: data[i].place_name,
           })
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x))
         }
@@ -88,7 +88,7 @@ export default function BasicMap() {
                   console.log('장소', marker.content, '\n위도:', marker.position.lat, '경도:', marker.position.lng)
                   setCenter({
                     lat: marker.position.lat,
-                    lng: marker.position.lng
+                    lng: marker.position.lng,
                   })
                   setZoomLevel(3) // Zoom level 변경
                 }}

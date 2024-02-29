@@ -66,7 +66,7 @@ const CurrentLocation = (props) => {
   }, [])
 
   return (
-    <div className=" top-2/3 w-3/4 h-72 z-10 absolute border border-r-8">
+    <div className=" top-2/3 left-[13%] w-3/4 h-72 z-10 absolute border border-r-8">
       <div>
         <Map
           center={location.center}

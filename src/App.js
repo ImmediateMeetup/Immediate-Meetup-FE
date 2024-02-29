@@ -6,6 +6,7 @@ import Join from './pages/Join'
 import Main from './pages/Meeting/Main'
 import RangePicker from './pages/RangePicker'
 import TeamDetail from './pages/Meeting/TeamDetail'
+import BasicMap from './components/Maps'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
         <Route path="/teamDetail" element={<TeamDetail />} />
         <Route path="/rangePicker" element={<RangePicker />} />
+        <Route path="/maps" element={<BasicMap />} />
       </Routes>
     </BrowserRouter>
   )

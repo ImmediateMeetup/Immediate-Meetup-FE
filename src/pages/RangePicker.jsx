@@ -2,14 +2,18 @@ import React, {useState} from 'react'
 import Range from '../components/TimeTable/Range'
 import {useMutation, useQueries, useQuery, useQueryClient} from '@tanstack/react-query'
 import {createMeeting} from '../apis'
+import {useNavigate} from 'react-router-dom'
 
 export default function RangePicker() {
+  const navigate = useNavigate()
   const [showTable, setShowTable] = useState(false)
 
   const createAppointment = () => {
     setShowTable(!showTable)
+    if (showTable === true) {
+      navigate('/main')
+    }
   }
-  //날짜 시간 보내주기로 변경
   return (
     <div className="flex flex-col mt-60 items-center ">
       <div className="w-[300px] h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle mb-10">
