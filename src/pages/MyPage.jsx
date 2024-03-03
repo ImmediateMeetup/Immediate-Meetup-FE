@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Input from '../components/input/Input'
 import Header from '../components/Header'
+import {useCookies} from 'react-cookie'
+import {getUserProfile} from '../apis'
 
 export default function MyPage() {
+  const cookie = useCookies(['AUTH-KEY'])
   const [data, setData] = useState({
     email: 'test@example.com',
     name: '이름',
@@ -10,6 +13,18 @@ export default function MyPage() {
     phoneNumber: null,
     address: '주소'
   })
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const token = cookie['AUTH-KEY']
+        const response = await getUserProfile(token)
+        setData(response.body)
+      } catch {
+        console.error(error)
+      }
+    }
+  }, [])
 
   const [email, setEmail] = useState(data.email)
   const [password, setPassword] = useState('')
@@ -34,6 +49,7 @@ export default function MyPage() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
+    console.log(email)
   }
 
   const handleProfilePictureChange = (e) => {

@@ -20,7 +20,7 @@ function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/mypage" element={<MyPage />} />
 
-        <Route path="/teamDetail" element={<TeamDetail />} />
+        <Route path="/teamDetail/:id" element={<TeamDetail />} />
         <Route path="/rangePicker" element={<RangePicker />} />
         <Route path="/maps" element={<BasicMap />} />
       </Routes>

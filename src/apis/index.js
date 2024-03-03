@@ -32,11 +32,20 @@ export async function editPassword(data) {
   return await api.patch('/user/edit-password', data)
 }
 
+export async function editUser(token, data) {
+  return await api.patch('user/edit', data, {
+    headers: {
+      'AUTH-KEY': `${token}`,
+      'Content-Type': 'multipart-form/data'
+    }
+  })
+}
+
 export async function createMeeting({data, token}) {
   console.log(data)
   return await api.post('/meeting', data, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -44,7 +53,7 @@ export async function createMeeting({data, token}) {
 export async function getMeeting(token) {
   return await api.get(`/meeting/invitations`, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -52,7 +61,7 @@ export async function getMeeting(token) {
 export async function getMeetingDetail({meeting_id, token}) {
   return await api.get(`/meeting/${meeting_id}`, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -60,7 +69,7 @@ export async function getMeetingDetail({meeting_id, token}) {
 export async function editTime({meeting_id, token}) {
   return await api.patch(`/time/${meeting_id}`, null, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -68,7 +77,7 @@ export async function editTime({meeting_id, token}) {
 export async function inviteMember({meetingId, memberId, token}) {
   return await api.post(`meeting/invitations/${meetingId}/${memberId}`, null, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -80,7 +89,7 @@ export async function searchMember({keyword}) {
 export async function getMeetingTime({meeting_id, token}) {
   return await api.get(`/time/${meeting_id}`, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -93,7 +102,7 @@ export async function postComment({data, token}) {
   console.log(data)
   return await api.post('/comment/comment', data, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -102,7 +111,7 @@ export async function postReplyComment({data, token}) {
   console.log(data)
   return await api.post('/comment/reply', data, {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -110,7 +119,7 @@ export async function postReplyComment({data, token}) {
 export async function getAllMeeting(token) {
   return await api.get('/meeting/all', {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }
@@ -122,7 +131,7 @@ export async function deleteMember() {
 export async function getUserProfile(token) {
   return await api.get('/user', {
     headers: {
-      Authorization: `${token}`
+      'AUTH-KEY': `${token}`
     }
   })
 }

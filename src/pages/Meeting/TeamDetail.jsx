@@ -5,21 +5,33 @@ import Header from '../../components/Header'
 import CurrentLocation from '../../components/Maps/CurrentLocation'
 import {useCookies} from 'react-cookie'
 import {getMeeting} from '../../apis'
+import {useParams} from 'react-router-dom'
 
 export default function TeamDetail() {
+  let {id} = useParams()
   const [cookie] = useCookies(['AUTH-KEY'])
-  const [data, setData] = useState()
+  const [data, setData] = useState({
+    id: 1,
+    title: '수정된 약속방 이름',
+    content: '수정된 약속방 내용',
+    firstDay: '수정된 시작 날',
+    lastDay: '수정된 마지막 날',
+    place: '서울특별시 서대문구 남가좌동',
+    timeZone: '09:00~17:00',
+    comments: [],
+    participate: ['심유진', '최준호', '고태현', '홍정우', '한상윤']
+  })
   useEffect(() => {
     async function getData() {
       try {
         const token = cookie['AUTH-KEY']
-        const response = await getMeeting(token)
+        const response = await getMeetingDetail(id, token)
         setData(response.data)
       } catch (error) {
         console.error('Error')
       }
     }
-  })
+  }, [])
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
   const [address, setAddress] = useState({lat: 0, lng: 0})
@@ -43,11 +55,20 @@ export default function TeamDetail() {
       <Header />
       <div className="flex justify-center items-center h-screen">
         <div className="w-[900px] py-12 px-6 rounded-lg shadow-lg bg-white overflow-y-auto">
-          <div className="justify-center py-4">
-            <div className="w-[300px] h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle ml-20 mb-5 ">
-              <div className="flex mt-2 ml-2">
-                <div className="mr-3 text-center flex flex-col-reverse justify-center align-middle text-white text-[15px] w-[80px] h-[30px] rounded-[12px] bg-rose-300 ">
-                  심유진
+          <div className="justify-center items-center py-4">
+            <div className=" items-start justify-start flex-row">
+              <div className=" h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle ml-20 mb-5 ">
+                <div className="flex mt-2 ml-2">
+                  {data.participate.map(function (a, i) {
+                    return (
+                      <div
+                        key={data.id}
+                        className="mr-3 text-center flex flex-col-reverse justify-center align-middle text-white text-[15px] w-[80px] h-[30px] rounded-[12px] bg-rose-300 "
+                      >
+                        {data.participate[i]}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -56,7 +77,7 @@ export default function TeamDetail() {
                 <ReceiveTimeTable />
                 <div className="ml-40">
                   <div>약속장소는 다음과 같아요</div>
-                  <div>{stringAddress}</div>
+                  <div className="  font-['Pretendard']  text-2xl">{data.place}</div>
                 </div>
               </div>
             </div>
