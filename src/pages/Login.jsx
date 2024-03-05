@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const [data, setData] = useState({
     email: '',
-    password: '',
+    password: ''
   })
   const [cookie, setCookie] = useCookies(['AUTH-KEY'])
   const handleData = async () => {

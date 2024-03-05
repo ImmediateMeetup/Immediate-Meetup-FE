@@ -8,7 +8,7 @@ export default function BasicMap({lat, lng, route, subwayName}) {
   const [map, setMap] = useState()
   const [center, setCenter] = useState({
     lat: lat || 37.5546788388674,
-    lng: lng || 126.970606917394
+    lng: lng || 126.970606917394,
   })
   const [infoOpen, setInfoOpen] = useState(false)
 
