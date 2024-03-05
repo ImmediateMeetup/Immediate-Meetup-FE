@@ -7,6 +7,7 @@ import BasicMap from './components/Maps'
 import {CookiesProvider} from 'react-cookie'
 import MeetingRoom from './pages/Meeting/Main'
 
+
 function App() {
   
   return (
@@ -21,6 +22,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </CookiesProvider>
+
   )
 }
 

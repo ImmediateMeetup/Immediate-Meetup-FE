@@ -34,18 +34,26 @@ export default function Login() {
       navigate('/login')
     }
   }
+
   return (
     <div>
       <Header />
       <div className="content-center mt-56">
         <div className="text-[30px] font-bold text-center text-black">우리지금 만나, 당장 만나</div>
         <div className="flex flex-col items-center mt-28">
-          <BasicInput type={'email'} placeHolder={'ID'} onChange={(e) => setEmail(e.target.value)} showError={false} />
+          <BasicInput
+            type={'email'}
+            placeHolder={'ID'}
+            onChange={(e) => setEmail(e.target.value)}
+            showError={false}
+            value={email}
+          />
           <BasicInput
             type={'password'}
             placeHolder={'Password'}
             onChange={(e) => setPassword(e.target.value)}
             showError={false}
+            value={password}
           />
         </div>
 

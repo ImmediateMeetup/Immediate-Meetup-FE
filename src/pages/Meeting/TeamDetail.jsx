@@ -1,11 +1,47 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReceiveTimeTable from '../../components/TimeTable/ReceiveTimeTable'
 import Button from '../../components/Button'
 import Header from '../../components/Header'
+import CurrentLocation from '../../components/Maps/CurrentLocation'
+import {useCookies} from 'react-cookie'
+import {getMeeting} from '../../apis'
+import {useParams} from 'react-router-dom'
 
 export default function TeamDetail() {
+  let {id} = useParams()
+  const [cookie] = useCookies(['AUTH-KEY'])
+  const [data, setData] = useState({
+    id: 1,
+    title: '수정된 약속방 이름',
+    content: '수정된 약속방 내용',
+    firstDay: '수정된 시작 날',
+    lastDay: '수정된 마지막 날',
+    place: '서울특별시 서대문구 남가좌동',
+    timeZone: '09:00~17:00',
+    comments: [],
+    participate: ['심유진', '최준호', '고태현', '홍정우', '한상윤']
+  })
+  useEffect(() => {
+    async function getData() {
+      try {
+        const token = cookie['AUTH-KEY']
+        const response = await getMeetingDetail(id, token)
+        setData(response.data)
+      } catch (error) {
+        console.error('Error')
+      }
+    }
+  }, [])
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
+  const [address, setAddress] = useState({lat: 0, lng: 0})
+  const [stringAddress, setStringAddress] = useState('')
+  const [openModal, setOpenModal] = useState(false)
+
+  const handleModal = () => {
+    setOpenModal(!openModal)
+    console.log(openModal)
+  }
 
   const addComment = () => {
     if (newComment.trim() !== '') {
@@ -13,55 +49,68 @@ export default function TeamDetail() {
       setNewComment('')
     }
   }
+
   return (
-    <>
+    <div>
       <Header />
-      <div className="mx-72 py-24">
-        <div className="flex justify-around items-center">
-          <div className=" py-4">
-            <div className="w-[270px] h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle mb-12 ml-10">
-              <div className="flex mt-2 ml-2">
-                <div className="mr-3 text-center flex flex-col-reverse justify-center align-middle text-white text-[15px] w-[80px] h-[30px] rounded-[12px] bg-rose-300 ">
-                  심유진
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-[900px] py-12 px-6 rounded-lg shadow-lg bg-white overflow-y-auto">
+          <div className="justify-center items-center py-4">
+            <div className=" items-start justify-start flex-row">
+              <div className=" h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle ml-20 mb-5 ">
+                <div className="flex mt-2 ml-2">
+                  {data.participate.map(function (a, i) {
+                    return (
+                      <div
+                        key={data.id}
+                        className="mr-3 text-center flex flex-col-reverse justify-center align-middle text-white text-[15px] w-[80px] h-[30px] rounded-[12px] bg-rose-300 "
+                      >
+                        {data.participate[i]}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
-            <ReceiveTimeTable />
-            <button className="ml-10 text-center mt-20 text-white text-[22px] w-[250px] h-[70px] rounded-[15px] bg-[#ff6e6e] ">
-              수정완료
-            </button>
-          </div>
-          <div>
-            <div className="text-[25px]"> 참가 인원 1 / 3</div>
-            <div className="text-[400px]">🗺️</div>
-          </div>
-        </div>
-        <div className="w-[full] mt-20">
-          <div className="text-[20px] ml-2 mb-2">댓글</div>
-          <div className="w-[full] h-[60px] border-2 rounded-[20px] border-rose-200 flex align-middle">
-            <input
-              type="text"
-              className="flex-grow p-2 rounded-l-[20px] border-none"
-              placeholder=" 댓글을 입력하세요 ..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-            <button
-              className="bg-blue-400 text-white px-4 py-2 rounded-r-[20px] hover:bg-blue-600"
-              onClick={addComment}
-            >
-              추가
-            </button>
-          </div>
-          <div>
-            {comments.map((comment, index) => (
-              <div key={index} className="mt-2 p-2 border rounded">
-                {comment}
+            <div className="flex items-center mb-6 justify-center">
+              <div className="flex mt-4">
+                <ReceiveTimeTable />
+                <div className="ml-40">
+                  <div>약속장소는 다음과 같아요</div>
+                  <div className="  font-['Pretendard']  text-2xl">{data.place}</div>
+                </div>
               </div>
-            ))}
+            </div>
+            <div className="gap-8">
+              <div className="flex flex-col text-center justify-center">
+                <Button text="수정 완료" className="my-3 w-full" />
+              </div>
+              <div>
+                <div className="text-lg font-bold mb-4">댓글</div>
+                <div className="flex mb-4">
+                  <input
+                    type="text"
+                    className="flex-grow p-2 rounded-l-lg border"
+                    placeholder="댓글을 입력하세요..."
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                  <button className="bg-blue-500 text-white px-4 rounded-r-lg" onClick={addComment}>
+                    추가
+                  </button>
+                </div>
+                <div>
+                  {comments.map((comment, index) => (
+                    <div key={index} className="bg-gray-100 p-4 rounded-lg mb-2">
+                      {comment}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

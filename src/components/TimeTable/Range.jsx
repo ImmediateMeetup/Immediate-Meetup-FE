@@ -10,6 +10,7 @@ export default function Range({showTable, setShowTable}) {
   return (
     <>
       <DateRange dateRange={dateRange} setDateRange={setDateRange} />
+      <div className="h-[20px]"></div>
       <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       {showTable && (
         <TimeTable
