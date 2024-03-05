@@ -9,21 +9,29 @@ import {useCookies} from 'react-cookie'
 
 export default function Login() {
   const navigate = useNavigate()
-  const [cookies, setCookie] = useCookies(['token'])
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
-  const handleLogin = async () => {
+  const [data, setData] = useState({
+    email: '',
+    password: ''
+  })
+  const [cookie, setCookie] = useCookies(['AUTH-KEY'])
+  const handleData = async () => {
     try {
-      const response = await login({email, password})
+      const updatedData = {
+        email: email || data.email,
+        password: password || data.password,
+      }
+      setData(updatedData)
+      console.log(updatedData)
+      const response = await login(data)
       const token = response.data.token
-      setCookie('AUTH-KEY', token)
-      navigate('/main')
+      setCookie('AUTH-KEY', token, {path: '/'})
+      navigate('/meetingroom')
     } catch (error) {
-      alert('로그인에 실패했습니다.')
-      setEmail('')
-      setPassword('')
+      console.error('로그인실패', error)
+      alert('로그인 실패입니다')
+      navigate('/login')
     }
   }
 
@@ -51,16 +59,16 @@ export default function Login() {
 
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
           <button
-            type="button"
-            className="text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e]"
-            onClick={handleLogin}
+            type="submit"
+            className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+            onClick={handleData}
           >
             로그인
           </button>
         </form>
         <div
           onClick={() => {
-            navigate('/join')
+            navigate('/')
           }}
           className="text-center cursor-pointer mt-14"
         >

@@ -6,6 +6,8 @@ import {useNavigate} from 'react-router-dom'
 import {useCookies} from 'react-cookie'
 import {getAllMeeting} from '../../apis'
 
+const MeetingRoom = () => {
+  
 const Main = () => {
   const navigate = useNavigate()
   const [cookie] = useCookies(['AUTH-KEY'])
@@ -76,4 +78,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default MeetingRoom
