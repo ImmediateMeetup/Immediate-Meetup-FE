@@ -97,6 +97,12 @@ export default function Join() {
             <button
               type="button"
               className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
+<<<<<<< Updated upstream
+=======
+              onClick={() => {
+                handleInviteModal(email)
+              }}
+>>>>>>> Stashed changes
             >
               인증 요청
             </button>
@@ -130,13 +136,30 @@ export default function Join() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
+<<<<<<< Updated upstream
           <div onClick={handleModal}>현재위치 추가</div>
+=======
+          <div
+            className=" cursor-pointer text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600"
+            onClick={handleModal}
+          >
+            현재위치 추가
+          </div>
+>>>>>>> Stashed changes
           {openModal && (
             <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
           )}
+<<<<<<< Updated upstream
           <div onClick={() => console.log(address)}>{stringAddress === '' ? '주소를 설정해주세요' : stringAddress}</div>
           <button
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+=======
+          <div className="text-[22px]" onClick={() => console.log(address)}>
+            {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
+          </div>
+          <div
+            className=" cursor-pointer flex items-center justify-center mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
+>>>>>>> Stashed changes
             onClick={handleData}
           >
             회원가입

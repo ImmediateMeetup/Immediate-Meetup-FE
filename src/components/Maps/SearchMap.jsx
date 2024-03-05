@@ -1,13 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import {CustomOverlayMap, Map, MapInfoWindow, MapMarker} from 'react-kakao-maps-sdk'
+import {Map, MapMarker} from 'react-kakao-maps-sdk'
 import useKakaoLoader from './useKakaoLoader'
 import Input from '../input/Input'
 
-export default function BasicMap({lat, lng, route, subwayName}) {
+export default function SearchMap() {
   useKakaoLoader()
+
+  const [info, setInfo] = useState()
+  const [markers, setMarkers] = useState([])
   const [map, setMap] = useState()
+  const [searchWord, setSearchWord] = useState('')
+  const [searchComplete, setSearchComplete] = useState(false)
   const [center, setCenter] = useState({
-<<<<<<< Updated upstream
     lat: 33.450701,
     lng: 126.570667
   })
@@ -50,30 +54,22 @@ export default function BasicMap({lat, lng, route, subwayName}) {
     setSearchWord(searchWord)
     setSearchComplete(true)
   }
-=======
-    lat: lat || 37.5546788388674,
-    lng: lng || 126.970606917394
-  })
-  const [infoOpen, setInfoOpen] = useState(false)
->>>>>>> Stashed changes
 
   return (
     <div className=" flex justify-center items-center bg-slate-100">
-      <Map id="map" center={center} className=" w-[40rem] h-[30rem]" level={4} onCreate={setMap}>
-        <MapMarker
-          position={center}
-          onClick={() => {
-            setInfoOpen(!infoOpen)
-          }}
-        >
-          {infoOpen && (
-            <CustomOverlayMap position={center}>
-              <div className=" bg-white">{`${route} ${subwayName}역`}</div>
-            </CustomOverlayMap>
-          )}
-        </MapMarker>
+      <Map id="map" center={center} className=" w-[40rem] h-[30rem]" level={zoomLevel} onCreate={setMap}>
+        {markers.map((marker, index) => (
+          <MapMarker
+            key={`marker-${marker.content}-${marker.position.lat},${marker.position.lng}`}
+            position={marker.position}
+            onMouseOver={() => setInfo(marker)}
+            onClick={() => setInfo(marker)}
+            className=" cursor-pointer"
+          >
+            {info && info.content === marker.content && <div className="text-[#000] text-m">{marker.content} </div>}
+          </MapMarker>
+        ))}
       </Map>
-<<<<<<< Updated upstream
       <div className=" mx-32">
         <div>
           <input
@@ -87,7 +83,7 @@ export default function BasicMap({lat, lng, route, subwayName}) {
         </div>
         <ul id="placesList">
           {markers.map((marker, index) => (
-            <li key={index} className=" border border-black">
+            <li key={index} className=" w-fit">
               <span></span>
               <button
                 onClick={() => {
@@ -96,21 +92,15 @@ export default function BasicMap({lat, lng, route, subwayName}) {
                     lat: marker.position.lat,
                     lng: marker.position.lng
                   })
-                  setZoomLevel(3) // Zoom level 변경
+                  setZoomLevel(3)
                 }}
               >
                 <h5>{marker.content}</h5>
-                <span>
-                  {marker.position.lat}, {marker.position.lng}
-                </span>
               </button>
             </li>
           ))}
         </ul>
       </div>
-    </>
-=======
     </div>
->>>>>>> Stashed changes
   )
 }

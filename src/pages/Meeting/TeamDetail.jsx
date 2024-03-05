@@ -26,6 +26,7 @@ export default function TeamDetail() {
                 </div>
               </div>
             </div>
+<<<<<<< Updated upstream
             <ReceiveTimeTable />
             <button className="ml-10 text-center mt-20 text-white text-[22px] w-[250px] h-[70px] rounded-[15px] bg-[#ff6e6e] ">
               수정완료
@@ -57,6 +58,18 @@ export default function TeamDetail() {
             {comments.map((comment, index) => (
               <div key={index} className="mt-2 p-2 border rounded">
                 {comment}
+=======
+            <div className="flex items-center mb-6 justify-center">
+              <div className="flex mt-4">
+                <ReceiveTimeTable />
+                <div className="ml-40">
+                  <div>약속장소는 다음과 같아요</div>
+                  <div className="  font-['Pretendard']  text-2xl">{data.place}</div>
+                  <button className=" my-2 text-xl bg-blue-500 text-white px-4 rounded-lg" onClick={addComment}>
+                    현재위치 변경
+                  </button>
+                </div>
+>>>>>>> Stashed changes
               </div>
             ))}
           </div>
