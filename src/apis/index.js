@@ -135,3 +135,24 @@ export async function getUserProfile(token) {
     }
   })
 }
+
+//map
+export async function postUserLocation(id, token, data) {
+  return await api.post(`/map/${id}`, data, {
+    headers: {
+      'AUTH-KEY': `${token}`
+    }
+  })
+}
+
+export async function patchUserLocation(id, token, data) {
+  return await api.patch(`/map/${id}`, data, {
+    headers: {
+      'AUTH-KEY': `${token}`
+    }
+  })
+}
+
+export async function getNearSubway(id) {
+  return await api.get(`/map/point/${id}`)
+}

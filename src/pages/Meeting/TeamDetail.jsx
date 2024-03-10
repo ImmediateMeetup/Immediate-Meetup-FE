@@ -4,8 +4,9 @@ import Button from '../../components/Button'
 import Header from '../../components/Header'
 import CurrentLocation from '../../components/Maps/CurrentLocation'
 import {useCookies} from 'react-cookie'
-import {getMeeting} from '../../apis'
+import {getMeeting, getNearSubway} from '../../apis'
 import {useParams} from 'react-router-dom'
+import BasicMap from '../../components/Maps'
 
 export default function TeamDetail() {
   let {id} = useParams()
@@ -21,12 +22,21 @@ export default function TeamDetail() {
     comments: [],
     participate: ['심유진', '최준호', '고태현', '홍정우', '한상윤']
   })
+  const [nearSubway, setNearSubway] = useState({
+    subwayId: '1285',
+    subwayName: '임진강',
+    route: '경의중앙선',
+    longitude: 126.746765,
+    latitude: 37.888421
+  })
   useEffect(() => {
     async function getData() {
       try {
         const token = cookie['AUTH-KEY']
         const response = await getMeetingDetail(id, token)
+        const addressResponse = await getNearSubway(id, token)
         setData(response.data)
+        setNearSubway(addressResponse.data)
       } catch (error) {
         console.error('Error')
       }
@@ -34,8 +44,6 @@ export default function TeamDetail() {
   }, [])
   const [comments, setComments] = useState([])
   const [newComment, setNewComment] = useState('')
-  const [address, setAddress] = useState({lat: 0, lng: 0})
-  const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
 
   const handleModal = () => {
@@ -78,6 +86,12 @@ export default function TeamDetail() {
                 <div className="ml-40">
                   <div>약속장소는 다음과 같아요</div>
                   <div className="  font-['Pretendard']  text-2xl">{data.place}</div>
+                  <BasicMap
+                    lat={nearSubway.latitude}
+                    lng={nearSubway.longitude}
+                    route={nearSubway.route}
+                    subwayName={nearSubway.subwayName}
+                  />
                 </div>
               </div>
             </div>
