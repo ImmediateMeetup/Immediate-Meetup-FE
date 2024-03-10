@@ -8,13 +8,16 @@ export default function BasicMap({lat, lng, route, subwayName}) {
   const [map, setMap] = useState()
   const [center, setCenter] = useState({
     lat: lat || 37.5546788388674,
-    lng: lng || 126.970606917394,
+    lng: lng || 126.970606917394
   })
   const [infoOpen, setInfoOpen] = useState(false)
-
+  const [markerPostion, setMarkerPostion] = useState({
+    lat: center.lat + 0.001,
+    lng: center.lng
+  })
   return (
     <div className=" flex justify-center items-center bg-slate-100">
-      <Map id="map" center={center} className=" w-[40rem] h-[30rem]" level={4} onCreate={setMap}>
+      <Map id="map" center={center} className=" w-[20rem] h-[20rem]" level={4} onCreate={setMap}>
         <MapMarker
           position={center}
           onClick={() => {
@@ -22,9 +25,9 @@ export default function BasicMap({lat, lng, route, subwayName}) {
           }}
         >
           {infoOpen && (
-            <CustomOverlayMap position={center}>
-              <div className=" bg-white">{`${route} ${subwayName}역`}</div>
-            </CustomOverlayMap>
+            <div>
+              {route} {subwayName}역
+            </div>
           )}
         </MapMarker>
       </Map>
