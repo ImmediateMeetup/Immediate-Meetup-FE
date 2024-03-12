@@ -29,6 +29,7 @@ export default function Join() {
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
   const modalRef = useRef(null)
+  const [openInviteModal, setOpenInviteModal] = useState(false)
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -47,7 +48,6 @@ export default function Join() {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [openModal])
-  const [openInviteModal, setOpenInviteModal] = useState(false) // State for invite email modal
 
   const handleData = () => {
     const updatedData = {
@@ -88,6 +88,7 @@ export default function Join() {
     setOpenInviteModal(!openInviteModal)
     //emailCertification(email)
   }
+
   return (
     <div>
       <Header />
@@ -125,7 +126,7 @@ export default function Join() {
             <button
               type="button"
               className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
-              onClick={handleInviteModal(email)}
+              onClick={() => handleInviteModal(email)} // Changed here
             >
               인증 요청
             </button>
