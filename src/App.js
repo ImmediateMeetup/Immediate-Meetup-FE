@@ -29,8 +29,10 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route path="/maps" element={<SearchMap />} />
           <Route path="/map" element={<BasicMap />} />
-          <Route path="/meetingroom" element={<PrivateRoute element={<MeetingRoom />} />} />
-          <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} />
+          {/* <Route path="/meetingroom" element={<PrivateRoute element={<MeetingRoom />} />} />
+          <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} /> */}
+          <Route path="/meetingroom" element={<MeetingRoom />} />
+          <Route path="/teamDetail/*" element={<TeamDetail />} />
         </Routes>
       </Router>
     </CookiesProvider>
