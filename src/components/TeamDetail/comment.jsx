@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import {getMeetingDetail} from '../../apis'
 
-export default function comment() {
-  const [comments, setComments] = useState([])
+export default function Comment({initialComments}) {
+  const [comments, setComments] = useState(initialComments || [])
   const [newComment, setNewComment] = useState('')
 
   const addComment = () => {
@@ -11,6 +10,7 @@ export default function comment() {
       setNewComment('')
     }
   }
+
   return (
     <div>
       <div className="text-lg font-bold mb-4">댓글</div>

@@ -83,7 +83,7 @@ export async function inviteMember({meetingId, memberId, token}) {
 }
 
 export async function searchMember({keyword}) {
-  return await api.get(`http://localhost:8080/api/meet-up/user/search?${keyword}=test`)
+  return await api.get(`http://localhost:8080/api/meet-up/user/search?keyword=${keyword}`)
 }
 
 export async function getMeetingTime({meeting_id, token}) {
