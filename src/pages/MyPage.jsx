@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import Input from '../components/input/Input'
 import Header from '../components/Header'
 import {useCookies} from 'react-cookie'
 import {getUserProfile} from '../apis'
+import CurrentLocation from '../components/Maps/CurrentLocation'
 
 export default function MyPage() {
   const cookie = useCookies(['AUTH-KEY'])
@@ -34,6 +35,11 @@ export default function MyPage() {
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
   const [address, setAddress] = useState(data.address)
 
+  const [stringAddress, setStringAddress] = useState('')
+  const [openModal, setOpenModal] = useState(false)
+  const modalRef = useRef(null)
+  const [openInviteModal, setOpenInviteModal] = useState(false)
+
   const handleData = () => {
     const updatedData = {
       email,
@@ -55,6 +61,10 @@ export default function MyPage() {
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0]
     setProfilePicture(file)
+  }
+
+  const handleModal = () => {
+    setOpenModal(!openModal)
   }
 
   return (
@@ -100,7 +110,18 @@ export default function MyPage() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div> 현재위치 추가 </div>
+          <div className=" text-l text-white w-28 text-center rounded-2xl mt-2 bg-blue-600" onClick={handleModal}>
+            현재위치 수정
+          </div>
+          {openModal && (
+            <div ref={modalRef}>
+              <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
+            </div>
+          )}
+          <div className="text-[22px]" onClick={() => console.log(address)}>
+            {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
+          </div>
+
           <button
             className="mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
