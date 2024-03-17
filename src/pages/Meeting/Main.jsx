@@ -1,91 +1,55 @@
 import React, {useEffect, useState} from 'react'
 import Header from '../../components/Header'
 import Button from '../../components/Button'
-import MeetingButton from '../../components/MettingButton'
+import MeetingButton from '../../components/MeetingButon'
 import {useNavigate} from 'react-router-dom'
 import {useCookies} from 'react-cookie'
 import {getAllMeeting} from '../../apis'
-import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
+import {useQuery} from '@tanstack/react-query'
 
-const Main = () => {
+const MeetingRoom = () => {
   const navigate = useNavigate()
   const [cookie] = useCookies(['AUTH-KEY'])
-  const [status, setStatus] = useState()
-  /* const [data, setData] = useState({
-    meetings: [
-      {
-        id: 1,
-        title: 'testMeeting',
-        content: 'test content',
-        firstDay: '2023-02-12',
-        lastDay: '2023-02-23',
-        place: null,
-        timeZone: '09:00~17:00'
-      },
-      {
-        id: 2,
-        title: 'testMeeting',
-        content: 'test content',
-        firstDay: '2023-02-12',
-        lastDay: '2023-02-23',
-        place: null,
-        timeZone: '09:00~17:00'
-      }
-    ]
-  })*/
 
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const token = cookie['AUTH-KEY'];
-  //       const response = await getAllMeeting(token);
-  //       setData(response.data);
-  //     } catch (error) {
-  //       console.error('Error');
-  //     }
-  //   }
-  // }, []);
-
-  const {data, error} = useQuery({
-    queryKey: ['getAllMeeting'],
-    queryFn: () => getAllMeeting()
+  const {data, error, isLoading} = useQuery(['getAllMeeting'], getAllMeeting, {
+    retry: 1,
+    enabled: cookie['AUTH-KEY'] !== undefined
   })
-  useEffect(() => {
-    console.log(data, 'getAllMeetingData')
-    setStatus(data)
-  }, [data, error])
 
   return (
     <>
       <Header />
-      <div className=" px-96 w-full">
-        <div className=" flex w-full justify-end items-end mt-3">
+      <div className="px-96 w-full">
+        <div className="flex w-full justify-end items-end mt-3">
           <Button
             text="방 만들기"
-            width=" w-[150px]"
+            width="w-[150px]"
             onClick={() => {
               navigate('/rangePicker')
             }}
           />
         </div>
 
-        <div className=" flex justify-center items-center flex-wrap">
-          {status?.data.map((a, i) => {
-            return (
+        <div className="flex justify-center items-center flex-wrap">
+          {isLoading && <div>Loading...</div>}
+
+          {error && <div>Error: {error.message}</div>}
+
+          {data &&
+            data.meetings.map((meeting) => (
               <MeetingButton
-                key={a.id}
+                key={meeting.id}
                 onClick={() => {
-                  navigate(`/teamDetail/${a.id}`)
+                  navigate(`/teamDetail/${meeting.id}`)
                 }}
-                title={a.title}
-                content={a.content}
+                title={meeting.title}
+                content={meeting.content}
               />
-            )
-          })}
+            ))}
         </div>
       </div>
     </>
   )
 }
 
-export default Main
+export default MeetingRoom

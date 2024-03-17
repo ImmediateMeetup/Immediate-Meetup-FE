@@ -13,9 +13,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import Main from './pages/Meeting/Main'
 
 function App() {
-  const queryClient = new QueryClient({
-    /* options */
-  })
+  const queryClient = new QueryClient()
 
   const [cookies] = useCookies(['AUTH-KEY'])
 
@@ -38,11 +36,9 @@ function App() {
             <Route path="/main" element={<Main />} />
             <Route path="/maps" element={<SearchMap />} />
             <Route path="/map" element={<BasicMap />} />
-            {/* <Route path="/meetingroom" element={<PrivateRoute element={<MeetingRoom />} />} />
-          <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} /> */}
-            <Route path="/meetingroom" element={<MeetingRoom />} />
-            <Route path="/teamDetail/*" element={<TeamDetail />} />
-            <Route path="/myPage" element={<MyPage />} />
+            <Route path="/meetingroom" element={<PrivateRoute element={<MeetingRoom />} />} />
+            <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} />
+            <Route path="/myPage" element={<PrivateRoute element={<MyPage />} />} />
           </Routes>
         </Router>
       </CookiesProvider>

@@ -24,7 +24,7 @@ export async function emailCertification(email) {
 }
 
 export async function emailConfirm({email, code}) {
-  return await api.get(`emails/verifications?email=${email}=${code}`)
+  return await api.get(`emails/verifications?email=${email}&code=${code}`)
 }
 
 export async function editPassword(data) {
