@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import Input from '../components/input/Input'
 import Header from '../components/Header'
 import {useCookies} from 'react-cookie'
@@ -6,7 +6,7 @@ import {getUserProfile} from '../apis'
 import CurrentLocation from '../components/Maps/CurrentLocation'
 
 export default function MyPage() {
-  const cookie = useCookies(['AUTH-KEY'])
+  const [cookie] = useCookies(['AUTH-KEY'])
   const [data, setData] = useState({
     email: 'test@example.com',
     name: '이름',
@@ -20,11 +20,12 @@ export default function MyPage() {
       try {
         const token = cookie['AUTH-KEY']
         const response = await getUserProfile(token)
-        setData(response.body)
-      } catch {
-        console.error(error)
+        setData(response.data)
+      } catch (error) {
+        console.error('Error fetching user profile:', error)
       }
     }
+    getData()
   }, [])
 
   const [email, setEmail] = useState(data.email)
@@ -34,13 +35,11 @@ export default function MyPage() {
   const [name, setName] = useState(data.name)
   const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber)
   const [address, setAddress] = useState(data.address)
-
   const [stringAddress, setStringAddress] = useState('')
   const [openModal, setOpenModal] = useState(false)
-  const modalRef = useRef(null)
-  const [openInviteModal, setOpenInviteModal] = useState(false)
 
   const handleData = () => {
+    // Validate fields here before updating data
     const updatedData = {
       email,
       password,
@@ -55,7 +54,6 @@ export default function MyPage() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
-    console.log(email)
   }
 
   const handleProfilePictureChange = (e) => {
@@ -114,7 +112,7 @@ export default function MyPage() {
             현재위치 수정
           </div>
           {openModal && (
-            <div ref={modalRef}>
+            <div>
               <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
             </div>
           )}

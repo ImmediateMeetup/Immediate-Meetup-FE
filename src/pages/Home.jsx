@@ -35,7 +35,7 @@ export default function Home() {
   }, [translateX, direction])
 
   return (
-    <div>
+    <div className=" w-full">
       <Header />
       <div>
         <div className=" absolute translate-y-72">

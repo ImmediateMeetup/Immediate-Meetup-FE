@@ -5,7 +5,6 @@ import CurrentLocation from '../components/Maps/CurrentLocation'
 import Header from '../components/Header'
 import InviteEmail from '../components/Modal/InviteEmail'
 import {emailCertification} from '../apis'
-import {useMutation} from '@tanstack/react-query'
 
 export default function Join() {
   const [data, setData] = useState({
@@ -84,9 +83,15 @@ export default function Join() {
     setOpenModal(!openModal)
   }
 
-  const handleInviteModal = (email) => {
-    setOpenInviteModal(!openInviteModal)
-    //emailCertification(email)
+  const handleInviteModal = async (email) => {
+    emailCertification(email)
+      .then(() => {
+        setOpenInviteModal(!openInviteModal)
+      })
+      .catch(() => {
+        alert('올바르지 않은 접근입니다.')
+        setOpenInviteModal(!openInviteModal)
+      })
   }
 
   return (
@@ -168,9 +173,9 @@ export default function Join() {
               <CurrentLocation handleModal={handleModal} setAddress={setAddress} setStringAddress={setStringAddress} />
             </div>
           )}
-          <di className="text-[22px]" onClick={() => console.log(address)}>
+          <div className="text-[22px]" onClick={() => console.log(address)}>
             {stringAddress === '' ? '주소를 설정해주세요' : stringAddress}
-          </di>
+          </div>
           <div
             className=" cursor-pointer flex items-center justify-center mt-20 text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
@@ -180,7 +185,7 @@ export default function Join() {
         </form>
       </div>
 
-      {openInviteModal && <InviteEmail closeModal={handleInviteModal} email={email} />}
+      {openInviteModal && <InviteEmail closeModal={() => setOpenInviteModal(false)} email={email} />}
     </div>
   )
 }

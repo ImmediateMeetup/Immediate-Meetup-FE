@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import Header from '../components/Header'
-import Button from '../components/Button'
-import Input from '../components/input/index'
 import BasicInput from '../components/input/index'
 import {useNavigate} from 'react-router-dom'
 import {login} from '../apis'
@@ -11,34 +9,25 @@ export default function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [data, setData] = useState({
-    email: '',
-    password: ''
-  })
-  const [cookie, setCookie] = useCookies(['AUTH-KEY'])
+  const [error, setError] = useState(null)
+  const [cookie, setCookie] = useCookies()
+
   const handleData = async () => {
     try {
-      const updatedData = {
-        email: email || data.email,
-        password: password || data.password,
-      }
-      setData(updatedData)
-      console.log(updatedData)
-      const response = await login(data)
+      setError(null)
+      const response = await login({email, password})
       const token = response.data.token
       setCookie('AUTH-KEY', token, {path: '/'})
       navigate('/meetingroom')
     } catch (error) {
-      console.error('로그인실패', error)
-      alert('로그인 실패입니다')
-      navigate('/login')
+      setError('로그인 실패입니다. 다시 시도해주세요.')
     }
   }
 
   return (
     <div>
       <Header />
-      <div className="content-center mt-56">
+      <div className="content-center mt-36">
         <div className="text-[30px] font-bold text-center text-black">우리지금 만나, 당장 만나</div>
         <div className="flex flex-col items-center mt-28">
           <BasicInput
@@ -57,9 +46,11 @@ export default function Login() {
           />
         </div>
 
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+
         <form className="p-5 flex flex-col items-center bg-white rounded-lg">
           <button
-            type="submit"
+            type="button"
             className=" text-white text-[25px] w-[350px] h-[90px] rounded-[15px] bg-[#ff6e6e] "
             onClick={handleData}
           >
@@ -68,7 +59,7 @@ export default function Login() {
         </form>
         <div
           onClick={() => {
-            navigate('/')
+            navigate('/join')
           }}
           className="text-center cursor-pointer mt-14"
         >
