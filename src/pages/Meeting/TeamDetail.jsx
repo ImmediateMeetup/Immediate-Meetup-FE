@@ -66,7 +66,7 @@ export default function TeamDetail() {
           <div className="justify-center items-center py-4">
             <div className=" items-start justify-start flex-row">
               <div className=" h-[50px] border-2 rounded-[15px] border-rose-200 flex align-middle mb-10 mx-5 ">
-                <Member participate={data?.participate || []} />
+                <Member participate={data?.participate || []} meetingId={id} />
               </div>
             </div>
             <div className="flex items-center mb-6 justify-center">
