@@ -59,7 +59,6 @@ export default function Join() {
     }
     setData(updatedData)
     console.log(data)
-    //join(data)
   }
 
   const handleEmailChange = (e) => {
@@ -131,7 +130,7 @@ export default function Join() {
             <button
               type="button"
               className={`items-start ${email === '' ? 'bg-[#ffa7a7]' : 'bg-[#ff6e6e]'} text-white w-20 rounded-2xl mt-2 h-10`}
-              onClick={() => handleInviteModal(email)} // Changed here
+              onClick={() => handleInviteModal(email)}
             >
               인증 요청
             </button>
