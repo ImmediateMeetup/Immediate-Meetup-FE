@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import InviteModal from './InviteModal'
 
-export default function Member({participate}) {
+export default function Member({participate, meetingId, cookie}) {
   const [showInviteModal, setShowInviteModal] = useState(false)
 
   const handleInviteClick = () => {
@@ -28,7 +28,7 @@ export default function Member({participate}) {
       >
         +
       </div>
-      {showInviteModal && <InviteModal onClose={handleCloseModal} />}
+      {showInviteModal && <InviteModal onClose={handleCloseModal} meetingId={meetingId} />}
     </div>
   )
 }
