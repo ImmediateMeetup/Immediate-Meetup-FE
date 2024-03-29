@@ -5,6 +5,7 @@ import ReceiveMeetingButton from '../../components/ReceiveMeetingButton'
 import {useNavigate} from 'react-router-dom'
 import {useCookies} from 'react-cookie'
 import {getMeeting} from '../../apis'
+import {getMeetingMock} from '../../apis'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {useParams} from 'react-router-dom'
 
@@ -52,11 +53,11 @@ const ReceiveRequest = () => {
   }, [id, cookie])*/
 
   const {data, error} = useQuery({
-    queryKey: ['getMeeting'],
-    queryFn: () => getMeeting()
+    queryKey: ['getMeetingMock'],
+    queryFn: () => getMeetingMock()
   })
   useEffect(() => {
-    console.log(data, 'getMeetingData')
+    console.log(data, 'getMeetingMock')
     setStatus(data)
   }, [data, error])
 

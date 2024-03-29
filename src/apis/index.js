@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.REACT_APP_SERVER_URL,
   credentials: 'same-origin'
 })
 
@@ -50,17 +50,17 @@ export async function createMeeting({data, token}) {
   })
 }
 
-export async function getMeeting() {
+export async function getAllMeetingMock() {
   return await api.get('api-meet-up-meeting')
 }
 
-/*export async function getMeeting(token) {
+export async function getMeeting(token) {
   return await api.get(`/meeting/invitations`, {
     headers: {
       'AUTH-KEY': `${token}`
     }
   })
-}*/
+}
 
 export async function getMeetingDetail({meeting_id, token}) {
   return await api.get(`/meeting/${meeting_id}`, {
@@ -120,7 +120,7 @@ export async function postReplyComment({data, token}) {
   })
 }
 
-export async function getAllMeeting() {
+export async function getMeetingMock() {
   return await api.get('/api-meetup-meeting')
 }
 

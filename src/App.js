@@ -40,6 +40,7 @@ function App() {
             <Route path="/meetingroom" element={<PrivateRoute element={<MeetingRoom />} />} />
             <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} />
             <Route path="/myPage" element={<PrivateRoute element={<MyPage />} />} />
+            <Route path="/main" element={<PrivateRoute element={<MeetingRoom />} />} />
             <Route path="/receiveRequest" element={<ReceiveRequest />} />
           </Routes>
         </Router>
