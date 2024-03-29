@@ -50,6 +50,10 @@ export async function createMeeting({data, token}) {
   })
 }
 
+export async function getAllMeetingMock() {
+  return await api.get('api-meet-up-meeting')
+}
+
 export async function getMeeting(token) {
   return await api.get(`/meeting/invitations`, {
     headers: {
@@ -116,13 +120,17 @@ export async function postReplyComment({data, token}) {
   })
 }
 
-export async function getAllMeeting(token) {
-  return await api.get('/meeting/all', {
+export async function getMeetingMock() {
+  return await api.get('/api-meetup-meeting')
+}
+
+/*export async function getAllMeeting(meeting_id,token) {
+  return await api.get('/meet-up/meeting/${meeting_id}', {
     headers: {
       'AUTH-KEY': `${token}`
     }
   })
-}
+}*/
 
 export async function deleteMember() {
   return await api.delete('/member')

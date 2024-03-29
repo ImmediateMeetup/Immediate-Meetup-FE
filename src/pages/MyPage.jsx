@@ -39,7 +39,6 @@ export default function MyPage() {
   const [openModal, setOpenModal] = useState(false)
 
   const handleData = () => {
-    // Validate fields here before updating data
     const updatedData = {
       email,
       password,
