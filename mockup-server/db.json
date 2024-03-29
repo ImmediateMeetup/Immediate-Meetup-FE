@@ -499,5 +499,21 @@
       "longitude": 126.746765,
       "latitude": 37.888421
     }
+  ],
+
+  "api-meet-up-meeting": [
+    {
+      "meetings": [
+        {
+          "id": 1,
+          "title": "testMeeting",
+          "content": "test content",
+          "firstDay": "2023-02-12",
+          "lastDay": "2023-02-23",
+          "place": null,
+          "timeZone": "09:00~17:00"
+        }
+      ]
+    }
   ]
 }
