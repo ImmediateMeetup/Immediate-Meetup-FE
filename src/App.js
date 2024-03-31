@@ -11,7 +11,6 @@ import SearchMap from './components/Maps/SearchMap'
 import MyPage from './pages/MyPage'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import Main from './pages/Meeting/Main'
-import ReceiveRequest from './pages/Meeting/ReceiveRequest'
 
 function App() {
   const queryClient = new QueryClient()
@@ -41,7 +40,6 @@ function App() {
             <Route path="/teamDetail/*" element={<PrivateRoute element={<TeamDetail />} />} />
             <Route path="/myPage" element={<PrivateRoute element={<MyPage />} />} />
             <Route path="/main" element={<PrivateRoute element={<MeetingRoom />} />} />
-            <Route path="/receiveRequest" element={<ReceiveRequest />} />
           </Routes>
         </Router>
       </CookiesProvider>

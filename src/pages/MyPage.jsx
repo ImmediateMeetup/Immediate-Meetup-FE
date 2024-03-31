@@ -26,7 +26,7 @@ export default function MyPage() {
       }
     }
     getData()
-  }, [])
+  }, [cookie])
 
   const [email, setEmail] = useState(data.email)
   const [password, setPassword] = useState('')
