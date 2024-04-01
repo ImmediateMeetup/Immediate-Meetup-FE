@@ -70,6 +70,18 @@ export async function getMeetingDetail({meeting_id, token}) {
   })
 }
 
+export async function postReceiveRequestMock() {
+  return await api.post(`/api-meetup-meeting`)
+}
+
+export async function postReceiveRequest() {
+  return await api.post(`/meeting/invitations`, {
+    headers: {
+      'AUTH-KEY': `${token}`
+    }
+  })
+}
+
 export async function editTime({meeting_id, token}) {
   return await api.patch(`/time/${meeting_id}`, null, {
     headers: {
